@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		*{margin: 0;padding: 0;}
+		a{text-decoration: none;}
+		a:hover{text-decoration: underline;}
+		.top,.body{width: 100%; height:100%;overflow: hidden;}
+		.top_div{width: 1200px; margin: 0 auto;margin-top: 10px; padding-bottom: 10px; border-bottom: 1px solid #919191;}
+		#body_div{width: 1200px;margin: 0 auto;overflow: hidden;margin-top: 50px;margin-bottom: 10px;}
+		.p_class{color: #979797; font-size: 22px;float: left;font-weight: 700;}
+		.body_top{float: right;width: 400px;margin-right: 100px;}
+		.body_top span{color: #979797;font-size: 14px;float: right;display: block;}
+		.body_top span a{color: #B42025;}
+		.bot_left{width: 465px; height: 352px;margin-left: 150px;margin-top: 18px;display: inline;float: left;}
+		.bot_left img{border:0;}
+		.body_bot{margin-top: 25px;}
+		.bot_right{float: right;margin-right: 100px;width: 404px;margin-top: 18px;border: 1px solid #D1D1D1;}
+		#common{width: 200px;height: 35px; font-size: 14px;background: #B42025; color: white;text-align: center;line-height: 35px;cursor: pointer;float: left;border:1px solid #D1D1D1;}
+		#fast{width: 200px;height: 35px; font-size: 14px;text-align: center;line-height: 35px;cursor: pointer;float: left;border: 1px solid #D1D1D1;}
+		#username{width: 360px; height: 45px;border: 1px solid #CBCBCB;margin: 28px 0px 18px 20px;}
+		#password{width: 360px; height: 45px;border: 1px solid #CBCBCB;margin-left: 20px;}
+		.code_form{width: 360px; height: 45px;border: 1px solid #CBCBCB;margin-left: 20px;margin-top: 18px;}
+		#code{width: 115px; height: 45px; float: left;border: 0;}
+		#code_p{width: 200px;height: 45px;float: left; line-height: 45px; text-align: center; cursor: pointer;}
+		#word_span{width: 400px;height: 18px;line-height: 18px;text-align: center;}
+		.form_class{width: 400px;height: 18px;line-height: 18px;text-align: center;}
+		#div_find{width: 360px; margin-top: 18px;margin-left: 20px;}
+		.find{ color: #B42025; font-size: 14px;margin-left:304px;display: block; }
+		.log{width: 360px; height: 45px;color: #fff;font-size: 20px;background: #B42025;display: block;text-align: center;line-height: 45px;}
+		.team{width: 404px;border-top: 1px solid #D1D1D1;margin-top: 42px;}
+		.team_class{font-size: 14px; color: #A4A4A4;margin-top: 22px;margin-left: 20px;}
+		.team .pic{float: left;margin: 10px 0 20px 20px;}
+		.team p{float: left;margin: 10px 0 20px 5px;display: inline;}
+		#phone{width: 250px;height: 43px; border: 1px solid #CBCBCB;margin-left: 20px;float: left;margin-top: 28px;margin-bottom: 10px;}
+		.message{color: #B81E20;font-size: 12px; width: 100px; border: 1px solid #CBCBCB;height: 43px; line-height: 43px; text-align: center;margin-left: 10px;float: left;margin-top: 28px;margin-bottom: 10px;}
+		#phone_code{width: 360px; height: 45px;border: 1px solid #CBCBCB;margin-left: 20px; }
+		#right_fast{border: 1px solid #CBCBCB;display: none;}
+		img{border:0;}
+		.bottom_top{width: 1200px; margin: 10px auto 0;border-top: 1px solid #919191;}
+		.wordage{text-align: center;font-size: 12px; color: #999999;margin-top: 20px;}
+		.change{text-align: center;margin-top: 16px;}
+		
+		</style>
+		<script type="text/javascript" src = "js/jquery-1.10.1.min.js"></script>
+		<script type="text/javascript" src = "js/logon.js"></script>
+		
+	</head>
+	<body>
+		<div class = "top">
+			<div class = "top_div">
+				<img src="img/logo_new.jpg">
+			</div>
+		</div>
+		<div id = "body">
+			<div id = "body_div">
+				<div class = "body_top">
+					<p class = "p_class">凡客Vancl登录</p>
+					<span>没有账号免费<a href="">注册</a>
+					</span>
+				</div>
+				<div class = "body_bot">
+					<div class = "bot_left">
+						<img src="img/login120412_newlogo.jpg" alt = "凡客诚品" title = "凡客诚品"/>
+					</div>
+					<div class = "bot_right">
+						<div class = "right_top">
+							<p id = "common">普通登录</p>
+							<p id = "fast">快速登录</p>
+						</div>
+						<div id = "right_bot">
+							<input type = "text" placeholder = "请输入用户名" id = "username"/>
+							<input type = "text" placeholder = "请输入密码" id = "password"/><br>
+							<span id = "word_span"></span>
+							<form class = "code_form">
+								<input type = "text" id = "code" placeholder = "验证码">
+								<p id = "code_p"></p>
+							</form>
+							<div class = "form_class"></div>
+							<div id = "div_find">
+								<a href="#" class ="find">找回密码</a>
+								<a href="" class = "log">登录</a>
+							</div>
+							<div class = "team">
+								<div class = "team_class">使用合作网站账号登录凡客
+								</div>
+								<div>
+									<p class="pic"><a href=""><img src="img/wei.png"></a></p>
+									<p><a href=""><img src="img/mi.png"></a></p>
+									<p><a href=""><img src="img/zhi.png"></a></p>
+									<p><a href=""><img src="img/qq.png"></a></p>
+									<p><a href=""><img src="img/360.png"></a></p>
+									<p><a href=""><img src="img/bo.png"></a></p>
+								</div>
+							</div>
+						</div>
+						<div id = "right_fast">
+							<input type = "text" placeholder = "请输入手机号" id = "phone"/>
+							<a href="" class = "message">获取短信验证码</a>
+							<input type = "text" placeholder = "手机验证码" id = "phone_code"/><br>
+							<span id = "word_span"></span>
+							<div id = "div_find">
+								<a href="" class = "log">登录</a>
+							</div>
+							<div class = "team">
+								<div class = "team_class">使用合作网站账号登录凡客
+								</div>
+								<div >
+									<p><a href=""><img src="img/wei.png"></a></p>
+									<p><a href=""><img src="img/mi.png"></a></p>
+									<p><a href=""><img src="img/zhi.png"></a></p>
+									<p><a href=""><img src="img/qq.png"></a></p>
+									<p><a href=""><img src="img/360.png"></a></p>
+									<p><a href=""><img src="img/bo.png"></a></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id = "bottom">
+			<div class = "bottom_top">
+				<p class="wordage">Copyright 2007 - 2016 vancl.com All Rights Reserved 京ICP证100557号 京公网安备11010102000579号 出版物经营许可证新出发京批字第直110138号</p>
+				<div class = "change">
+					<a href=""><img src="img/integrity.png"/></a>
+					<a href=""><img src="img/cloth.png"/></a>
+					<a href=""><img src="img/trade.png"/></a>
+					<a href=""><img src="img/manage.png"/></a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
