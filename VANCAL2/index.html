@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/index.css">		
+		<script type="text/javascript" src = "js/jquery-1.10.1.min.js"></script>
+		<script type="text/javascript" src = "js/jquery-1.11.3.js"></script>
+		<script src="js/jquery.cookie.js"></script>				
+		<script type="text/javascript">
+		$(function(){
+			$("#wei_p").hover(function(){
+				$("#wei_span").css("display","block")
+			},function(){
+				$("#wei_span").css("display","none")
+			})
+			var li = $("#uli").find("li");
+			
+			for(var i =1; i < li.length; i++){
+				li.eq(i).hover(function(){
+					$(this).find("div").stop().slideDown()
+					$(this).css("borderBottom","4px solid #B81B22")
+					
+				},function(){
+					
+					$(this).find("div").stop().slideUp();
+					
+					$(this).css("border-bottom","")
+					
+				})
+			}
+			//购物车
+			$(".shop_div").hover(function(){
+				$(this).css("background","white").css("borderBottom","none");
+				$(this).find("span").css("color","#BA1B20")
+				
+				$(".shop_car").css("display","block");
+				if($.cookie("goods") == undefined){
+					$(".noneShop").css("display","block");
+					$(".shop_num").css("display","none");
+					$("#none").css("display","none");
+				}else{
+					var str4 = $.cookie("goods");
+					var arr4 = eval(str4);
+					if(arr4.length == "0"){
+						$(".noneShop").css("display","block");
+						$(".shop_num").css("display","none");
+						$("#none").css("display","none");
+					}else{
+						$(".noneShop").css("display","none")
+						$(".shop_num").css("display","block");
+						$("#none").css("display","block");
+					}
+				}
+				sc_img();    
+				var a = document.getElementsByClassName("delete");
+				for(var i = 0; i < a.length; i++){
+					a[i].index = i;
+					a[i].onclick = function(){
+						var str3 = $.cookie("goods");
+						var arr3 = eval(str3);
+						arr3.splice(this.index,1);
+						cookieStr2 = JSON.stringify(arr3);
+						$.cookie("goods", cookieStr2, {expires:9});
+						sc_car();
+						sc_img();
+						$(".sc_div").eq(this.index).remove();
+						var str5 = $.cookie("goods");
+						var arr5 = eval(str5);
+						if(arr5.length == "0"){
+							$(".noneShop").css("display","block");
+							$("#none").css("display","none");
+							sc_car();
+							sc_img();
+						}
+					}
+				}	
+			},function(){
+				$(this).css("background","#BA1B20").css("borderBottom","1px solid #BA1B20");
+				$(this).find("span").css("color","white")
+				$(".shop_car").css("display","none");
+				$(".noneShop").css("display","none")
+				$("#none").css("display","none");
+			})
+			sc_car();
+			//图滚动
+			var Tul = $(".sFigure_div").find("#sFigure_ul");
+			var Tol = $(".sFigure_div").find("#oli");
+
+			var oli = Tol.find("li");
+			var subscript = 0;
+			var timer = null;			
+			oli.mouseover(function(){
+				subscript = $(this).index();
+				oli.attr("class","")
+				$(this).attr("class","active")
+				Tul.find("li").hide();
+				Tul.find("li").eq(subscript).show()
+			})
+			$(".left").click(function(){
+				clearInterval(timer);
+				subscript -= 1;
+				oli.attr("class","");
+				oli.eq(subscript).attr("class","active");
+				Tul.find("li").hide();
+				Tul.find("li").eq(subscript).show();
+				if(subscript < 0){
+					subscript = 5;
+					oli.eq(5).attr("class","active");
+					Tul.find("li").hide();
+					Tul.find("li").eq(subscript).show();
+				}
+				timer = setInterval(function(){
+					subscript++;
+					oli.attr("class","")
+					oli.eq(subscript).attr("class","active")
+					if(subscript == 6){
+						oli.eq(0).attr("class","active")
+					}
+					
+					Tul.find("li").hide();
+					Tul.find("li").eq(subscript).show();
+					if(subscript >= oli.size() ){
+							subscript = 0;					
+					}
+				},2000)
+			})
+			$(".right").click(function(){
+				clearInterval(timer)
+				subscript += 1;
+				oli.attr("class","");
+				oli.eq(subscript).attr("class","active");
+				Tul.find("li").hide();
+				Tul.find("li").eq(subscript).show();
+				if(subscript == 6){
+					subscript = 0;
+					oli.eq(0).attr("class","active")
+				}
+				timer = setInterval(function(){
+					subscript++;
+					oli.attr("class","")
+					oli.eq(subscript).attr("class","active")
+					if(subscript == 6){
+						oli.eq(0).attr("class","active")
+					}
+					
+					Tul.find("li").hide();
+					Tul.find("li").eq(subscript).show();
+					if(subscript >= oli.size() ){
+							subscript = 0;					
+					}
+				},2000)
+			})
+			timer = setInterval(function(){
+				subscript++;
+				oli.attr("class","")
+				oli.eq(subscript).attr("class","active")
+				if(subscript == 6){
+					oli.eq(0).attr("class","active")
+				}
+				
+				Tul.find("li").hide();
+				Tul.find("li").eq(subscript).show();
+				if(subscript >= oli.size() ){
+						subscript = 0;					
+				}
+			},2000)
+			//加载商品1
+			$.ajax({
+				url:"2.json",
+				type:"GET",
+				success:function(data){
+					var html = "";
+					for(var i = 0; i < data.length; i++){
+						html += '<li><img src = "'+data[i].bgUrl+'"><div><span class = "explain">'+data[i].title+'</span><span class = "price">'+data[i].price+'</span></div></li>'
+					}
+					$(".goods ul").html(html);
+				}
+			})
+			//返回顶部
+			$(".back_li").click(function(){
+				$(window).scrollTop("0")
+			})
+			function sc_car(){				
+				var sc_num = 0;
+				var price = 0;
+				var sc_str = $.cookie("goods");
+				var sc_arr = eval(sc_str);				
+				for(var i in sc_arr){
+					sc_num += Number(sc_arr[i].num);
+					price += Number(sc_arr[i].num)*Number(sc_arr[i].price);			
+				}
+				//$(".carbox_content dl dt span").html(sc_num);
+				//$(".carbox_content dl dd").get(0).innerHTML= "总计￥" + price;
+				$("#none dl dd").get(0).innerHTML= "总计￥" + price; 
+				$("#shop_span").get(0).innerHTML= "购物车(" + sc_num + ")";						
+			}
+			function sc_img(){				
+				var html2 = "";
+				var sc_str = $.cookie("goods");
+				var sc_arr = eval(sc_str);
+				var sc_num = 0;
+				var price = 0;	
+				for(var i = 0; i < sc_arr.length; i++){
+						//alert()
+					if(sc_arr[i].id == "10"){
+						html2 += '<div class = "sc_div"><img src = "img/6375170-1j201609071437439032.jpg"><dl><dt>'+sc_arr[i].title+'</dt><dd>'+sc_arr[i].price+' X '+sc_arr[i].num+'</dd></dl><p class = "delete">删除</p></div>'
+								
+					}else{
+						html2 += '<div class = "sc_div"><img src = "img/6375169-1j201609071437438251.jpg"><dl><dt>'+sc_arr[i].title+'</dt><dd>'+sc_arr[i].price+' X '+sc_arr[i].num+'</dd></dl><p class = "delete">删除</p></div>'
+					}
+				}					
+				$(".shop_num").html(html2);						
+			}
+		})
+		</script>
+	</head>
+	<body>
+		<div class = "top">
+			<div class = "top_class">
+				<div class = "head">
+					<div class = "wei">
+						<p id = "wei1_p">
+							<span id = "wei_p"></span>
+							<span id = "wei_span"><img src="img/wei3.png"></span>
+						</p>
+						<p id = "bo_p"></p>
+					</div>
+					<div class = "notice">
+						<p class = "notice_p"></p>
+						<p class = "net"><a href="">网站公告</a></p>
+					</div>
+					<div class = "text">
+						<span>您好,欢迎光临凡客诚品！</span>
+						<a href="logon.html" class = "logon" target = "_blank">登录</a>
+						<a href="register.html" class = "login" target = "_blank">注册</a>
+						<a href="" class = "order">我的订单</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class = "search">
+			<div class = "search_class">
+				<div class ="search_div">
+					<div class = "form_div">
+						<form>
+							<input type = "text" value = "搜“穆旦”，体验与众不同" class = "txt_input">
+							<input type = "button" value = "搜索" class = "btn">
+						</form>
+						<div class = "shop_div">
+							<p class = "shop_p"><img src="img/shop.png"></p>
+							<span id = "shop_span">购物车(0)</span>
+							<div class = "shop_car">
+								<div class = "shop_num"></div>
+								<div class = "noneShop">您的购物车没有任何商品</div>
+								<div id = "none"><dl><dt>共计(未计算折扣价)</dt><dd><dd></dl><a href = 'shopcar.html' target = '_blank'>查看购物车</a></div>
+							</div>
+						</div>
+					</div>
+					<div class = "hot">热门搜索：
+						<a href="">水柔棉</a>
+						<a href="">户外鞋</a>
+						<a href="">免烫衬衫</a>
+						<a href="">法兰绒</a>
+						<a href="">帆布鞋</a>
+						<a href="">休闲裤</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class = "logo">
+			<div class = "logo_class">
+				<div class = "logo_div"><img src="img/logo_new.jpg"></div>
+				<div class = "nav">
+					<ul id = "uli">
+						<li class = "index">
+							<a href="" class ="nav_a">首页</a>
+						</li>
+						<li>
+							<a href="homepage.html" class ="nav_a" target = "_blank">衬衫</a>
+							<div>
+								<a href="">免烫</a>
+								<a href="">高支</a>
+								<a href="">休闲</a>
+								<a href="">法兰绒</a>
+								<a href="">牛津纺</a>
+								<a href="">青年布</a>
+								<a href="">牛仔</a>
+								<a href="">麻</a>
+								<a href="">府绸</a>
+								<a href="">私人订制</a>
+							</div>
+						</li>
+						<li>
+							<a href="homepage.html" class ="nav_a" target = "_blank">水柔棉</a>
+							<div>						
+								<a href="">拉链开衫</a>
+								<a href="">长袖V领</a>
+								<a href="">长袖圆领</a>
+								<a href="">短袖</a>
+							</div>
+						</li>
+						<li>
+							<a href="homepage.html" class ="nav_a" target = "_blank">羽绒服</a>
+							<div>
+								<a href="">男款</a>
+								<a href="">女款</a>
+							</div>
+						</li>
+						<li>
+							<a href="homepage.html" class ="nav_a" target = "_blank">外套</a>
+							<div>
+								<a href="">羽绒服</a>
+								<a href="">西服</a>
+								<a href="">夹克</a>
+								<a href="">卫衣</a>
+								<a href="">皮肤衣</a>
+							</div>
+						</li>
+						<li>
+							<a href="homepage.html" class ="nav_a" target = "_blank">针织衫</a>
+							<div>
+								<a href="">空调衫</a>
+								<a href="">棉线衫</a>
+								<a href="">羊毛衫</a>
+							</div>
+						</li>
+						<li>
+							<a href="homepage.html" class ="nav_a" target = "_blank">裤装</a>
+							<div>
+								<a href="">商务</a>
+								<a href="">休闲裤</a>
+								<a href="">牛仔裤</a>
+								<a href="">麻裤子</a>
+								<a href="">针织裤</a>
+							</div>
+						</li>
+						<li>
+							<a href="homepage.html" class ="nav_a" target = "_blank">鞋</a>
+							<div>
+								<a href="">户外鞋</a>
+								<a href="">帆布鞋</a>
+								<a href="">皮鞋</a>
+								<a href="">休闲鞋</a>
+							</div>
+						</li>
+						<li>
+							<a href="homepage.html" class ="nav_a" target = "_blank">袜品</a>
+							<div>
+								<a href="">船袜</a>
+								<a href="">中筒袜</a>
+								<a href="">连裤袜</a>
+							</div>
+						</li>
+						<li>
+							<a href="homepage.html" class ="nav_a" target = "_blank">家居配饰</a>
+							<div>
+								<a href="">床品三件套</a>
+								<a href="">床品四件套</a>
+								<a href="">羽绒被</a>
+								<a href="">鹅绒被</a>
+								<a href="">蚕丝被</a>
+								<a href="">羽毛枕</a>
+								<a href="">摇粒绒毯</a>
+								<a href="">珊瑚绒毯</a>
+								<a href="">珊瑚绒睡袍</a>
+								<a href="">配饰</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class = "sFigure">
+			<div class = "sFigure_div">
+				<div class = "foucsTab">
+					<ul id = "sFigure_ul">
+						<li><a href=""><img src="img/2016_10_26_14_29_58_6310_640x402.jpg"></a></li>
+						<li><a href=""><img src="img/2016_10_10_15_33_37_2980_640x402.jpg"></a></li>
+						<li><a href=""><img src="img/2016_10_27_9_18_37_3903_640x402.jpg"></a></li>
+						<li><a href=""><img src="img/2016_10_27_16_48_59_4404_640x402.jpg"></a></li>
+						<li><a href=""><img src="img/2016_10_13_14_57_13_2480_640x402.jpg"></a></li>
+						<li><a href=""><img src="img/2016_10_26_10_49_19_7245_640x402.jpg"></a></li>
+						<li><a href=""><img src="img/2016_10_26_14_29_58_6310_640x402.jpg"></a></li>
+					</ul>
+					<ol id = "oli">
+						<li class = "active"></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ol>
+					<a class = "left"><img src="img/left.png"></a>
+					<a class = "right"><img src="img/right.png"></a>
+				</div>
+			</div>
+		</div>
+		<div class = "getMoney">
+			<div class = "get_div">
+				<div class = "shoppingFestival">
+					<a href=""><img src="img/t1026.jpg"></a>
+				</div>
+				<div class = "newProducts">新品推荐</div>
+				<div class = "goods">
+					<ul>
+						
+					</ul>
+				</div>
+				<div class = "clothing">上装推荐</div>
+				<div class = "coat_shopping">
+					<ul>
+						<li class = "pic_one">
+							<img src="img/1_002.jpg">
+							<div>
+								<span class = "explain">商务衬衫</span>
+								<span class = "price">299元起</span>
+							</div>
+						</li>
+						<li class = "pic_two">
+							<div>
+								<img src="img/sz2.jpg">
+								<div>
+									<span class = "explain">V领套衫 棉线衫</span>
+									<span class = "price">329元</span>
+								</div>
+							</div>
+							<div class = "pic">
+								<img src="img/sz002.jpg">
+								<div>
+									<span class = "explain">免烫衬衫 私人定制</span>
+									<span class = "price">599元</span>
+								</div>
+							</div>
+						</li>
+						<li class = "pic_three">
+							<img src="img/sz3.jpg">
+							<div>
+								<span class = "explain">羊毛西服 意式修身暗格纹</span>
+								<span class = "price">999元</span>
+							</div>
+						</li>
+						<li class = "pic_four">
+							<img src="img/sz04.jpg">
+							<div>
+								<span class = "explain">休闲衬衫</span>
+								<span class = "price">99元起</span>
+							</div>
+						</li>
+						<li class = "pic_five">
+							<div>
+								<img src="img/sz05.jpg">
+								<div>
+									<span class = "explain">双帽双拉链 夹克</span>
+									<span class = "price">499元</span>
+								</div>
+							</div>
+							<div class = "dic">
+								<img src="img/sz06.jpg">
+								<div>
+									<span class = "explain">牛津纺衬衫</span>
+									<span class = "price">199元起</span>
+								</div>
+							</div>
+						</li>
+						<li class = "pic_six">
+							<img src="img/sz07.jpg">
+							<div>
+								<span class = "explain">基础款卫衣</span>
+								<span class = "price">299元起</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class = "bottomsRecommended">下装推荐</div>
+				<div class = "botShop">
+					<ul>
+						<li>
+							<img src="img/xz7.jpg">
+							<div>
+								<span class = "explain">凡客休闲裤全棉直筒</span>
+								<span class = "price">369元</span>
+							</div>
+						</li>
+						<li>
+							<img src="img/xztj-cyr.jpg">
+							<div>
+								<span class = "explain">凡客休闲裤弹力灯芯绒 </span>
+								<span class = "price">369元</span>
+							</div>
+						</li>
+						<li>
+							<img src="img/xztj-lr.jpg">
+							<div>
+								<span class = "explain">凡客休闲裤 拉绒加厚</span>
+								<span class = "price">468元</span>
+							</div>
+						</li>
+						<li style = "margin-right:0;">
+							<img src="img/xztj-tlxs.jpg">
+							<div>
+								<span class = "explain">弹力修身牛仔裤 女款</span>
+								<span class = "price">329元</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class = "moreRecommend">更多推荐</div>
+				<div class = "moreShop">
+					<ul>
+						<li><a href=""><img src="img/nautilus.jpg"></a></li>
+						<li><a href=""><img src="img/jp02.jpg"></a></li>
+						<li style = "margin-right:0;"><a href=""><img src="img/jp03.jpg"></a></li>
+						<li><a href=""><img src="img/jp04.jpg"></a></li>
+						<li><a href=""><img src="img/jj06.jpg"></a></li>
+						<li style = "margin-right:0;"><a href=""><img src="img/yrb.jpg"></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class = "vanFoot">
+			<div class = "foot">
+				<div class = "service">
+					<div class = "service_div">
+						<ul>
+							<li>
+								<p class = "customer"><a href=""><img src="img/onlinecustomer.png"></a></p>
+								<p class = "time">7x9小时在线客服</p>
+							</li>
+							<li>
+								<p class = "returnGoods"><a href=""><img src="img/seven.png"></a></p>
+								<p class = "sevenDay"><a href="">7天内退货</a></p>
+								<p class = "freeShipping"><a href="">购物满199免运费</a>
+								</p>
+							</li>
+							<li>
+								<p class = "QRcode"><img src="img/2014_8_29_16_39_33_7709.jpg"></p>
+								<p class = "scan">扫描下载<span>凡客</span>客户端</p>
+							</li>
+						</ul>
+					</div>
+					<div class = "about">
+						<ul>
+							<li><a href="">关于凡客</a></li>
+							<li><a href="">新手指南</a></li>
+							<li><a href="">配送范围及时间</a></li>
+							<li><a href="">支付方式</a></li>
+							<li><a href="">售后服务</a></li>
+							<li><a href="">帮助中心</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class = "footBottom">
+			<div class = "footBottom_div">
+				<p class = "p_foot">Copyright 2007 - 2016 vancl.com All Rights Reserved 京ICP证100557号 京公网安备11011502002400号 出版物经营许可证新出发京批字第直110138号</p>
+				<p class = "p_bot">凡客诚品（北京）科技有限公司</p>
+			</div>
+			<div class = "subfooter">
+				<a href=""><img src="img/integrity.png"></a>
+				<a href=""><img src="img/cloth.png"></a>
+				<a href=""><img src="img/net.png"></a>
+				<a href=""><img src="img/operate.png"></a>
+				<a href=""><img src="img/gre.png"></a>
+				<a href=""><img src="img/cctv.png"></a>
+			</div>
+		</div>
+		<div class = "sidebar">
+			<ul>
+				<li class = "white">
+					<p class = "phone"><img src="img/phone.png"></p>
+					<p>下载APP</p>
+				</li>
+				<li class = "white">
+					<p class = "online"><img src="img/online.png"></p>
+					<p>在线客服</p>
+				</li>
+				<li class = "back_li">
+					<p class = "triangle"><img src="img/triangle.png"></p>
+					<p class = "back_p">返回顶部</p>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>

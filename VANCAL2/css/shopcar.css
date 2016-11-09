@@ -1,0 +1,54 @@
+*{margin: 0; padding: 0;}
+.top{width: 100%;}
+a{text-decoration: none;}
+a:hover{text-decoration: underline;}
+.logo{width: 1000px; margin: 0 auto; border-bottom: 1px solid black; overflow: hidden;}
+.logo_div{width: 122px; height: 26px; margin: 12px 0 10px 100px;float: left;}
+.logo_div img{width: 100%; height: 100%;}
+.account{float: left;}
+.account span{font-size: 12px; color: #666666; float: left; margin: 21px 0 10px 472px;}
+.account a{color: #B80000; line-height: 14px; text-align: center; font-size: 12px; margin: 21px 0 10px 0px; float: left; width: 34px; height: 14px;}
+.login{border-right: 1px solid #898989;}
+.help{float: right; font-size: 12px; color: #666666; margin: 21px 0 10px 0;}
+.mycar{width: 1000px; margin: 0 auto; margin-top: 10px;overflow: hidden;}
+.location span{float: left; color: #767676; font-size: 14px; width: 170px; height: 28px; text-align: center; line-height: 28px; font-weight: bold;}
+.location .mycar_span{background: #B5141B; color: white;}
+.shopcar{height: 150px; margin-top: 50px;text-align: center;}
+.shopcar span{color: #8B8B8B; font-weight: bold; font-size: 14px;}
+.shopcar a{color: #B5141B;font-size: 14px; font-weight: bold;}
+
+.footBottom{width: 100%;}
+.footBottom_div{width: 1000px; margin: 0 auto;}
+.p_foot,.p_bot{text-align: center; font-size: 12px; color:#9E9E9E;}
+.subfooter{text-align: center;}
+
+
+
+.shopBox{float: left;margin-top: 20px;}
+
+.tip{font-size: 12px; color: #9E9E9E; margin-top: 8px;}
+.tip span{color:#BE1C1F;}
+.tradeName{background: url("../img/tip.png") repeat; margin-top: 8px; height: 37px; line-height: 37px; border: 1px solid #9E9E9E;width: 998px;}
+.tradeName span{float: left; font-size: 14px;font-weight: bold;}
+.tradeName input{float: left; margin-left: 16px; margin-top: 12px;}
+.sc_div{width: 998px; border: 1px solid #E2E2E2; float: left;}
+.check{float: left; margin: 50px 0 50px 45px;}
+.sc_div img{width: 50px; height: 50px; float: left;margin-left: 38px; margin-top: 30px;margin-bottom: 30px;}
+.title{float: left; margin-left: 6px; margin-top: 50px; margin-bottom: 50px;}
+.price{float: left; margin: 50px 0px 50px 83px; }
+.reduce{margin-bottom: 50px; float: left; margin-left: 16px; margin-top: 50px; margin-bottom: 50px;}
+.tex{margin-bottom: 50px; margin-top: 50px; float: left; width: 30px; height: 20px; border: 1px solid #9E9E9E;margin-left: 4px;}
+.add{margin-bottom: 50px; margin-top: 50px; float: left; margin-left: 4px;}
+.subtotal{margin-bottom: 50px; float: left; margin-left: 100px; margin-top: 50px;}
+.delete{cursor: pointer; margin-bottom: 50px; float: left; margin-left: 44px; margin-top: 50px;}
+.summary{margin-top: 10px; width: 998px; border: 1px solid #EBE5BB; float: left;}
+.shop_summary input{float: left; margin-left: 16px; margin-top: 33px;}
+.shop_summary span{float: left; margin-top: 28px;}
+.money_summary span{float: left;}
+.money_summary a{float: left;}
+.sum{margin: 50px 0px 10px 10px;}
+.sum_money{font-size: 18px; color: red;margin-top: 50px;}
+.money_summary{clear: both; }
+#dele{cursor: pointer;}
+.continue{margin-left: 393px; margin-top: 12px; color: #666666; width: 120px; height: 36px; line-height: 36px; text-align: center; background: #E5E5E5;}
+.settleAccounts{width: 158px; height: 52px; line-height: 52px; text-align: center; color: white; background: #BD0A0A;}
